@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RecipeOfDay</title>
+     <link rel="stylesheet" href="./components/navbar.css">
+</head>
+<style>
+    #recimain{
+        height: 550px;
+        width: 90%;
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+        margin: 20px;
+        display: flex;
+        margin: 20px auto;
+        overflow-y: auto;
+
+    }
+    #recimain>div{
+        height: 400px;
+        width: 90%;
+        margin: auto;
+    
+        
+    }
+    img{
+        height: 400px;
+        width: 400px;
+    }
+    p{
+        font-weight: normal;
+    }
+    h1{
+        color: red;
+    }
+</style>
+<body>
+    <div id="container"></div>
+    <div id="recimain">
+
+    </div>
+   
+    <a href="./components/navbar.js"></a>
+</body>
+</html>
+<script type="module">
+    import navabar from './components/navbar.js'
+    let container=document.getElementById('container')
+    container.innerHTML=navabar()
+    
+    var random=document.getElementById('Recipes_of_the_Day');
+    random.querySelector('click',getdata())
+
+    async function getdata(){
+        try{
+            let response=await fetch(`https://www.themealdb.com/api/json/v1/1/random.php`)
+            let data = await response.json();
+            console.log(data)
+            showData(data.meals)
+        }
+        catch(error){
+            console.log("Error",error)
+        }
+    }
+
+    function showData(data){
+        data.map(({strMealThumb,strCategory,strMeal,strIngredient1,strIngredient2,strIngredient3,strInstructions})=>{
+            var output=document.getElementById("recimain")
+            let maindiv=document.createElement("div");
+            let logo=document.createElement("img");
+            let categ=document.createElement("h1");
+            let tag=document.createElement("h3");
+            let ingra1=document.createElement("h3")
+            let ingra2=document.createElement("h3")
+            let ingra3=document.createElement("h3")
+            let bio=document.createElement("p");
+
+
+
+
+            logo.setAttribute("src",strMealThumb)
+            categ.innerText=strCategory;
+            tag.innerText=strMeal;
+            ingra1.innerText=strIngredient1;
+            ingra1.innerText=strIngredient2;
+            ingra3.innerText=strIngredient3;
+            bio.innerText=strInstructions;
+           
+            maindiv.append(categ,tag,ingra1,ingra2,ingra3,bio)
+            output.append(maindiv,logo)
+        })
+    }
+   
+</script>

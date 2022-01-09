@@ -1,0 +1,51 @@
+div{
+   padding: 10px;
+   font-weight: bold;
+}
+.navbar{
+    height: 50px;
+    width: 98%;
+    /* border: 2px solid red;  */
+    margin: auto;
+    display: flex;
+    background-color: #0eff2e;
+    font-size: 20px;
+    cursor: pointer;
+ 
+   }
+   
+   .navbar>div{
+      height: 100%;
+      /* border: 2px solid red; */
+      align-content: center;
+   
+}
+#home{
+   width: 20%;
+
+}
+#Search_Bar{
+   width: 40%;
+   height: 97%;
+
+}
+#Latest_Recipes{
+   width: 20%;
+   
+}
+#Recipes_of_the_Day{
+   width: 20%;
+
+}
+#Search_Recepie{
+   width: 90%;
+   font-size: 20px;
+   height: 70%;
+}
+a{
+   text-decoration: none;
+   color: black;
+   padding: 5px;
+    
+}
+ 

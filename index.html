@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index.html</title>
+     <link rel="stylesheet" href="./components/navbar.css">
+     <link rel="stylesheet" href="./style/index.css">
+</head>
+<body>
+    <div id="container"></div>
+    <div id="Search_result"></div>
+    <div class="showDataDiv"></div>
+   
+    <a href="./components/navbar.js"></a>
+</body>
+</html>
+<script type="module">
+    // import navbar here
+    import navabar from './components/navbar.js'
+    let container=document.getElementById('container')
+    container.innerHTML=navabar();
+
+    // import show data 
+    import {getData,showData} from "./script/dataShow.js"
+    // import {showData} from "./script/dataShow.js"
+    // console.log(getData);
+
+    let showDataDiv = document.querySelector(".showDataDiv");
+    let response =await  getData(`https://www.themealdb.com/api/json/v1/1/categories.php`);//pass teh url here in the getData() function 
+
+
+
+    // search result scripe here 
+    let Search_result=document.getElementById('Search_result');
+    let input=document.getElementById("Search_Recepie");
+    input.addEventListener("mouseover", ()=>{
+    Search_result.style.display="block";
+    })
+    showDataDiv.addEventListener("mouseout", ()=>{
+    Search_result.style.display="none";
+    })
+ 
+    input.addEventListener("input",search_recii)
+     
+    async function search_recii(){
+        try{ 
+            let input=document.getElementById("Search_Recepie").value;
+            let response=await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${input}`);
+            var data=await response.json();
+            show_srarch(data.meals);
+            console.log(data.meals);
+              
+        }
+        catch(erro){
+            console.log("error",erro);
+
+        }
+    }
+    // search working start here
+    function show_srarch(data){
+        data.map(({strMealThumb,strMeal,})=>{
+         let div=document.createElement("div")
+         let image=document.createElement("img");
+         let categ=document.createElement("h3");
+
+         let mealObj ={
+             strMealThumb,
+             strMeal
+         }
+         div.addEventListener("click", ()=>{
+            selectData(mealObj);
+         });
+
+         image.src=strMealThumb;
+         categ.innerText=strMeal;
+         div.append(image,categ)
+         Search_result.append(div);
+        });
+    }
+    function selectData(data){
+        localStorage.setItem("mealdatabase",JSON.stringify(data));
+        window.location.href="./ShowRecipes.html";
+    }
+
+
+    try{
+
+        console.log(response);
+        showData(response.categories , showDataDiv);
+         
+
+    }
+    catch(err){
+        console.log("Error : ",err);
+    }
+
+
+</script>
