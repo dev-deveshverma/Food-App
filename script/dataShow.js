@@ -7,7 +7,7 @@ async function getData(url){
         // console.log(data);
     }
     catch(err){
-        console.log("Error :", err);
+        console.log("Error:", err);
     }
 }
 
