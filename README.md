@@ -1,4 +1,3 @@
-
 #  Food-App
  The Food-app provied the all types food you can also search food as you went or goto recipe of the day.
  
